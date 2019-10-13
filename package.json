@@ -1,5 +1,5 @@
 {
-    "name": "framework-K210",
+    "name": "framework-N29",
     "description": "This SDK is for Kendryte K210 without OS support.",
     "version": "1.0.0",
     "url": "https://github.com/kendryte/kendryte-standalone-sdk"

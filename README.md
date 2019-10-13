@@ -6,14 +6,7 @@
 
 ### [Framework描述](https://github.com/OS-Q/N29/wiki) 
 
-[Framework N29](https://github.com/OS-Q/N29) 用于支持K210平台运行
-
-### [关联资源](https://github.com/OS-Q/)
-
- *  [ Platform : K210](https://github.com/OS-Q/H13) 
- *   [Framework N29](https://github.com/OS-Q/N29)
- *   [Framework N28](https://github.com/OS-Q/N28)
- *  [ M7](https://github.com/OS-Q/M7) 
+[Framework N29](https://github.com/OS-Q/N29) 用于支持K210平台运行Kendryte官方固件
 
 ### [OS-Q = Open Solutions | Open Source |  Operating System ](http://www.OS-Q.com/N29)
 ####  2019-9-8
