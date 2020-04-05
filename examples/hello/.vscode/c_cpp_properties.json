@@ -1,0 +1,51 @@
+{
+    "configurations": [
+        {
+            "name": "!!! WARNING !!! AUTO-GENERATED FILE, PLEASE DO NOT MODIFY IT AND USE https://docs.platformio.org/page/projectconf/section_env_build.html#build-flags"
+        },
+        {
+            "name": "Win32",
+            "includePath": [
+                "e:/N/N29/examples/hello/include",
+                "e:/N/N29/examples/hello/src",
+                "C:/Users/Qitas/.platformio/packages/framework-N29/lib/bsp",
+                "C:/Users/Qitas/.platformio/packages/framework-N29/lib/bsp/include",
+                "C:/Users/Qitas/.platformio/packages/framework-N29/lib/drivers",
+                "C:/Users/Qitas/.platformio/packages/framework-N29/lib/drivers/include",
+                "C:/Users/Qitas/.platformio/packages/framework-N29/lib/utils/include",
+                "C:/Users/Qitas/.platformio/packages/tool-unity",
+                ""
+            ],
+            "browse": {
+                "limitSymbolsToIncludedHeaders": true,
+                "path": [
+                    "e:/N/N29/examples/hello/include",
+                    "e:/N/N29/examples/hello/src",
+                    "C:/Users/Qitas/.platformio/packages/framework-N29/lib/bsp",
+                    "C:/Users/Qitas/.platformio/packages/framework-N29/lib/bsp/include",
+                    "C:/Users/Qitas/.platformio/packages/framework-N29/lib/drivers",
+                    "C:/Users/Qitas/.platformio/packages/framework-N29/lib/drivers/include",
+                    "C:/Users/Qitas/.platformio/packages/framework-N29/lib/utils/include",
+                    "C:/Users/Qitas/.platformio/packages/tool-unity",
+                    ""
+                ]
+            },
+            "defines": [
+                "PLATFORMIO=40003",
+                "CONFIG_LOG_ENABLE",
+                "CONFIG_LOG_LEVEL=LOG_INFO",
+                "DEBUG=1",
+                "__riscv64",
+                "K210",
+                "ARCH=K210",
+                "F_CPU=400000000L",
+                ""
+            ],
+            "intelliSenseMode": "clang-x64",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "compilerPath": "\"C:/Users/Qitas/.platformio/packages/toolchain-kendryte210/bin/riscv64-unknown-elf-gcc.exe\" -mcmodel=medany -mabi=lp64f -march=rv64imafc"
+        }
+    ],
+    "version": 4
+}
