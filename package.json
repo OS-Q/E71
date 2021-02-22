@@ -1,6 +1,6 @@
 {
-    "name": "N21",
+    "name": "N71",
     "description": "This SDK is for Kendryte K210 without OS support.",
-    "url": "https://github.com/OS-Q/N21",
+    "url": "https://github.com/OS-Q/N71",
     "version": "0.5.6"
 }

@@ -1,9 +1,9 @@
-﻿# [Framework N21](https://github.com/OS-Q/N21)
+﻿# [N71](https://github.com/OS-Q/N71)
 
 [![sites](http://182.61.61.133/link/resources/OSQ.png)](http://www.OS-Q.com)
 
-### [简介](https://github.com/OS-Q/N21/wiki)
+### [简介](https://github.com/OS-Q/N71/wiki)
 
-[Framework N21](https://github.com/OS-Q/N21)基于[PlatformIO](https://github.com/platformio/platformio-core) 框架
+[N71](https://github.com/OS-Q/N71) 用于适配 [P71](https://github.com/OS-Q/P71)
 
 ### [Q = (OpenSource & OperatingSystem) ](http://www.OS-Q.com)
