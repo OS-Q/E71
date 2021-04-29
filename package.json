@@ -1,6 +1,16 @@
 {
-    "name": "N71",
-    "description": "This SDK is for Kendryte K210 without OS support.",
-    "url": "https://github.com/OS-Q/N71",
-    "version": "0.5.6"
+  "name": "E71",
+  "version": "0.5.6",
+  "description": "Kendryte K210 standalone SDK without OS support",
+  "keywords": [
+    "framework",
+    "sdk",
+    "risc-v",
+    "kendryte"
+  ],
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kendryte/kendryte-standalone-sdk"
+  }
 }
