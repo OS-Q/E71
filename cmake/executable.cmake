@@ -1,11 +1,15 @@
+include(${CMAKE_CURRENT_LIST_DIR}/reset.cmake)
+
 if (NOT BUILDING_SDK)
     if(EXISTS ${SDK_ROOT}/libkendryte.a)
+        ### compiled sdk
+        header_directories(${SDK_ROOT}/include)
         add_library(kendryte STATIC IMPORTED)
         set_property(TARGET kendryte PROPERTY IMPORTED_LOCATION ${SDK_ROOT}/libkendryte.a)
-        include_directories(${SDK_ROOT}/include/)
     else()
-        header_directories(${SDK_ROOT}/lib)
-        add_subdirectory(${SDK_ROOT}/lib)
+        ### source code sdk
+        include_directories(${SDK_ROOT}/lib/arch/include ${SDK_ROOT}/lib/utils/include)
+        add_subdirectory(${SDK_ROOT}/lib SDK)
     endif()
 endif ()
 
@@ -15,18 +19,14 @@ removeDuplicateSubstring(${CMAKE_CXX_FLAGS} CMAKE_CXX_FLAGS)
 message("SOURCE_FILES=${SOURCE_FILES}")
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-
 set_target_properties(${PROJECT_NAME} PROPERTIES LINKER_LANGUAGE C)
 
 target_link_libraries(${PROJECT_NAME}
         -Wl,--start-group
-        gcc m c
-        -Wl,--whole-archive
-        kendryte
-        -Wl,--no-whole-archive
+        m freertos atomic bsp c stdc++ drivers posix
         -Wl,--end-group
         )
-        
+
 if (EXISTS ${SDK_ROOT}/src/${PROJ}/project.cmake)
     include(${SDK_ROOT}/src/${PROJ}/project.cmake)
 endif ()

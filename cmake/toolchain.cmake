@@ -5,8 +5,9 @@ else ()
 endif ()
 
 message(STATUS "Check for RISCV toolchain ...")
+
 if(NOT TOOLCHAIN)
-    find_path(_TOOLCHAIN riscv64-unknown-elf-gcc${EXT})
+	find_path(_TOOLCHAIN riscv64-unknown-elf-gcc${EXT})
     global_set(TOOLCHAIN "${_TOOLCHAIN}")
 elseif(NOT "${TOOLCHAIN}" MATCHES "/$")
     global_set(TOOLCHAIN "${TOOLCHAIN}")
@@ -45,7 +46,12 @@ global_set(CMAKE_C_LINK_EXECUTABLE
 global_set(CMAKE_CXX_LINK_EXECUTABLE
         "<CMAKE_CXX_COMPILER>  <FLAGS> <CMAKE_CXX_LINK_FLAGS> <LINK_FLAGS> \"${CRTI_OBJ}\" \"${CRTBEGIN_OBJ}\" <OBJECTS> \"${CRTEND_OBJ}\" \"${CRTN_OBJ}\" -o <TARGET> <LINK_LIBRARIES>")
 
+## do a simple check
 get_filename_component(_BIN_DIR "${CMAKE_C_COMPILER}" DIRECTORY)
-if (NOT "${TOOLCHAIN}" STREQUAL "${_BIN_DIR}")
-    message(FATAL_ERROR "CMAKE_C_COMPILER is not in kendryte-toolchain dist/bin folder.")
+if (NOT "${TOOLCHAIN}" STREQUAL "${_BIN_DIR}" AND NOT "${TOOLCHAIN}" STREQUAL "${_BIN_DIR}/")
+    message("TOOLCHAIN is [${TOOLCHAIN}]")
+    message("_BIN_DIR is [${_BIN_DIR}]")
+    message(WARNING "CMAKE_C_COMPILER is not in kendryte-toolchain dist/bin folder.")
 endif ()
+
+include(${CMAKE_CURRENT_LIST_DIR}/save.cmake)

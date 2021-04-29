@@ -1,16 +1,17 @@
 {
-  "name": "E71",
-  "version": "0.5.6",
-  "description": "Kendryte K210 standalone SDK without OS support",
+  "name": "framework-kendryte-freertos-sdk",
+  "version": "0.7.0",
+  "description": "Kendryte K210 SDK with FreeRTOS",
   "keywords": [
     "framework",
     "sdk",
+    "freertos",
     "risc-v",
-    "kendryte"
+    "kendryte "
   ],
   "license": "Apache-2.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/kendryte/kendryte-standalone-sdk"
+    "url": "https://github.com/kendryte/kendryte-freertos-sdk"
   }
 }

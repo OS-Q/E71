@@ -12,54 +12,51 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-/* Enable kernel-mode log API */
-
+#include "interrupt.h"
+#include "dump.h"
 #include <stdint.h>
 #include <stdlib.h>
-#include "dump.h"
-#include "interrupt.h"
-#include "syscalls.h"
-#include "syslog.h"
+#include <syslog.h>
+#include <task.h>
 
-uintptr_t __attribute__((weak))
-handle_irq_dummy(uintptr_t cause, uintptr_t epc, uintptr_t regs[32], uintptr_t fregs[32])
+static const char *TAG = "INTERRUPT";
+
+void __attribute__((weak)) handle_irq_dummy(uintptr_t *regs, uintptr_t cause)
 {
-    dump_core("unhandled interrupt", cause, epc, regs, fregs);
-    sys_exit(1337);
-    return epc;
+    LOGE(TAG, "unhandled interrupt: Cause 0x%016lx, EPC 0x%016lx\n", cause, regs[REG_EPC]);
+    exit(1337);
 }
 
-uintptr_t __attribute__((weak, alias("handle_irq_dummy")))
-handle_irq_m_soft(uintptr_t cause, uintptr_t epc, uintptr_t regs[32], uintptr_t fregs[32]);
-
-uintptr_t __attribute__((weak, alias("handle_irq_dummy")))
-handle_irq_m_timer(uintptr_t cause, uintptr_t epc, uintptr_t regs[32], uintptr_t fregs[32]);
-
-extern uintptr_t
-handle_irq_m_ext(uintptr_t cause, uintptr_t epc, uintptr_t regs[32], uintptr_t fregs[32]);
-
-uintptr_t __attribute__((weak))
-handle_irq(uintptr_t cause, uintptr_t epc, uintptr_t regs[32], uintptr_t fregs[32])
+uintptr_t *handle_irq(uintptr_t *regs, uintptr_t cause)
 {
+    // NMI
+    if (cause & CAUSE_MACHINE_IRQ_MASK)
+    {
 #if defined(__GNUC__)
 #pragma GCC diagnostic ignored "-Woverride-init"
 #endif
-    /* clang-format off */
-    static uintptr_t (* const irq_table[])(
-        uintptr_t cause,
-        uintptr_t epc,
-        uintptr_t regs[32],
-        uintptr_t fregs[32]) =
-    {
-        [0 ... 14]    = handle_irq_dummy,
-        [IRQ_M_SOFT]  = handle_irq_m_soft,
-        [IRQ_M_TIMER] = handle_irq_m_timer,
-        [IRQ_M_EXT]   = handle_irq_m_ext,
-    };
-    /* clang-format on */
+        /* clang-format off */
+	    static void(* const irq_table[])(
+            uintptr_t *regs, uintptr_t cause) = {
+	    	[0 ... 14]    = handle_irq_dummy,
+	    	[IRQ_M_SOFT]  = handle_irq_m_soft,
+	    	[IRQ_M_TIMER] = handle_irq_m_timer,
+	    	[IRQ_M_EXT]   = handle_irq_m_ext,
+	    };
+        /* clang-format on */
 #if defined(__GNUC__)
 #pragma GCC diagnostic warning "-Woverride-init"
 #endif
-    return irq_table[cause & CAUSE_MACHINE_IRQ_REASON_MASK](cause, epc, regs, fregs);
+        irq_table[cause & CAUSE_HYPERVISOR_IRQ_REASON_MASK](regs, cause);
+    }
+    else if (cause > CAUSE_USER_ECALL)
+    {
+        handle_syscall(regs, cause);
+    }
+    else
+    {
+        handle_except(regs, cause);
+    }
+
+    return regs;
 }

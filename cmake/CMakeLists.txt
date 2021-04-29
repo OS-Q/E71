@@ -9,26 +9,9 @@ include(./common.cmake)
 project(kendryte)
 
 # config self use headers
-include(./macros.internal.cmake)
-header_directories(${SDK_ROOT}/lib)
-
-# include lib make file
-include(../lib/CMakeLists.txt)
-
-# find headers files to INSTALL
-file(GLOB_RECURSE LIB_HEADERS
-        "../lib/*.h"
-        "../lib/*.hpp"
-        )
-set_target_properties(kendryte PROPERTIES PUBLIC_HEADER "${LIB_HEADERS}")
-
-# copy .a file and headers
-install(TARGETS kendryte
-        EXPORT kendryte
-        ARCHIVE
-        DESTINATION ${CMAKE_BINARY_DIR}/archive
-        PUBLIC_HEADER DESTINATION ${CMAKE_BINARY_DIR}/archive/include
-        )
+header_directories(../lib)
+# build library first
+add_subdirectory(../lib SDK)
 
 # copy utils files
 install(DIRECTORY
@@ -36,8 +19,12 @@ install(DIRECTORY
         ../utils
         ../cmake
         DESTINATION ${CMAKE_BINARY_DIR}/archive
-        PATTERN "*internal*" EXCLUDE
         PATTERN "CMakeLists.txt" EXCLUDE
+        PATTERN ".c" EXCLUDE
+        )
+install(DIRECTORY
+        ../lib
+        DESTINATION ${CMAKE_BINARY_DIR}/archive
         )
 
 # show information
